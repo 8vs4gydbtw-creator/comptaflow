@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ComptaFlow V1</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:#f5f7fb;color:#172033}
+button,input,select,textarea{font:inherit}.app{min-height:100vh;display:flex}.side{width:230px;background:#111827;color:#fff;padding:22px 14px;flex-shrink:0}.logo{font-size:21px;font-weight:800;padding:8px 12px 28px}.logo i{color:#7694ff;font-style:normal}.nav{display:grid;gap:5px}.nav button{border:0;background:transparent;color:#aeb7c7;text-align:left;padding:12px;border-radius:10px;cursor:pointer}.nav button.active,.nav button:hover{background:#202a3b;color:#fff}.main{width:100%;max-width:1200px;margin:auto;padding:30px}.head{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}.head h1{margin:0;font-size:28px}.head p{margin:6px 0;color:#778197}.pill{padding:8px 12px;border-radius:20px;background:#e9efff;color:#4563c8;font-size:12px;font-weight:700}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px}.stat,.card{background:#fff;border:1px solid #e4e8ef;border-radius:15px;box-shadow:0 4px 16px #17203308}.stat{padding:18px}.stat small{color:#7c879b}.stat strong{display:block;font-size:26px;margin-top:7px}.cols{display:grid;grid-template-columns:1.45fr 1fr;gap:18px}.card{padding:20px}.card h2{font-size:17px;margin:0 0 15px}.client{display:flex;align-items:center;justify-content:space-between;border:1px solid #edf0f5;border-radius:11px;padding:13px;margin:8px 0}.client b{font-size:14px}.client small{display:block;color:#8993a6;margin-top:4px}.btn{border:0;border-radius:9px;padding:10px 14px;font-weight:700;cursor:pointer}.primary{background:#4263eb;color:#fff}.soft{background:#edf1ff;color:#4263eb}.gray{background:#f1f3f6;color:#4e596d}.quick{width:100%;margin:5px 0;text-align:left}.modalbg{display:none;position:fixed;z-index:5;inset:0;background:#10182777;padding:18px;align-items:center;justify-content:center}.modal{background:white;width:min(720px,100%);max-height:94vh;overflow:auto;border-radius:17px;padding:22px}.modaltop{display:flex;justify-content:space-between;align-items:center}.x{border:0;border-radius:50%;width:34px;height:34px;background:#f0f2f6;cursor:pointer;font-size:19px}label{display:block;font-size:12px;font-weight:700;color:#68748a;margin:12px 0 6px}input,select,textarea{width:100%;padding:11px;border:1px solid #dfe4ec;border-radius:9px;background:white}textarea{min-height:110px;resize:vertical}.twocol{display:grid;grid-template-columns:1fr 1fr;gap:12px}.actions{display:flex;gap:9px;margin-top:16px}.preview{display:none;background:#f2f4f7;border-radius:10px;padding:18px;margin-top:17px}.paper{background:#fff;min-height:390px;padding:34px;box-shadow:0 2px 7px #0002}.line{height:1px;background:#ddd;margin:20px 0}.docs{display:none}.docrow{padding:14px;border:1px solid #edf0f4;border-radius:10px;margin:8px 0;display:flex;justify-content:space-between}.empty{color:#8490a4;font-size:13px}
+@media(max-width:760px){.side{width:64px}.logo{font-size:0}.logo i{font-size:20px}.nav button{font-size:0;text-align:center}.main{padding:20px}.stats,.cols,.twocol{grid-template-columns:1fr}.head h1{font-size:23px}}
+@media print{body *{visibility:hidden!important}.modalbg,.modal,.preview,.paper,.paper *{visibility:visible!important}.modalbg{display:block!important;position:static!important;background:white!important;padding:0}.modal{width:100%!important;max-height:none!important;padding:0!important}.modaltop,.form,.actions{display:none!important}.preview{display:block!important;padding:0!important;background:white!important}.paper{box-shadow:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="side">
+<div class="logo">Compta<i>Flow</i></div>
+<div class="nav">
+<button class="active" onclick="dashboard()">⌂ &nbsp; Tableau de bord</button>
+<button onclick="clients()">👥 &nbsp; Clients</button>
+<button onclick="newDoc()">＋ &nbsp; Nouveau document</button>
+<button onclick="documents()">▤ &nbsp; Documents</button>
+</div>
+</aside>
+<main class="main">
+<section id="dash">
+<div class="head"><div><h1>Bonjour 👋</h1><p>Créez vos documents clients en quelques secondes.</p></div><div class="pill">Cabinet Demo</div></div>
+<div class="stats"><div class="stat"><small>Clients</small><strong>3</strong></div><div class="stat"><small>Documents créés</small><strong id="count">12</strong></div><div class="stat"><small>À finaliser</small><strong>2</strong></div></div>
+<div class="cols">
+<div class="card"><h2>Clients récents</h2>
+<div class="client"><div><b>DUPONT BTP</b><small>SIREN 842 651 903 · SAS</small></div><button class="btn soft" onclick="newDoc('DUPONT BTP')">Créer</button></div>
+<div class="client"><div><b>Martin Conseil</b><small>SIREN 531 208 447 · SARL</small></div><button class="btn soft" onclick="newDoc('Martin Conseil')">Créer</button></div>
+<div class="client"><div><b>Nova Immobilier</b><small>SIREN 901 774 216 · SASU</small></div><button class="btn soft" onclick="newDoc('Nova Immobilier')">Créer</button></div>
+</div>
+<div class="card"><h2>Créer rapidement</h2>
+<button class="btn primary quick" onclick="newDoc()">📄 Demande de pièces</button>
+<button class="btn gray quick" onclick="newDoc()">🧾 Attestation</button>
+<button class="btn gray quick" onclick="newDoc()">✉️ Courrier client</button>
+</div>
+</div>
+</section>
+<section id="docs" class="docs">
+<div class="head"><div><h1>Documents</h1><p>Historique des documents créés.</p></div><button class="btn primary" onclick="newDoc()">＋ Nouveau document</button></div>
+<div class="card"><div class="docrow"><span>Demande de pièces · DUPONT BTP</span><small>Aujourd'hui</small></div><div class="docrow"><span>Attestation · Martin Conseil</span><small>Hier</small></div></div>
+</section>
+</main>
+</div>
+
+<div id="bg" class="modalbg">
+<div class="modal">
+<div class="modaltop"><h2 style="margin:0">Nouveau document</h2><button class="x" onclick="closeModal()">×</button></div>
+<div class="form">
+<label>Client</label><select id="client"><option>DUPONT BTP</option><option>Martin Conseil</option><option>Nova Immobilier</option></select>
+<label>Type de document</label><select id="type"><option>Demande de pièces</option><option>Attestation</option><option>Courrier client</option><option>Situation comptable</option></select>
+<div class="twocol"><div><label>Date</label><input id="date" type="date"></div><div><label>Exercice</label><input id="year" value="2026"></div></div>
+<label>Objet</label><input id="subject" value="Documents comptables à nous transmettre">
+<label>Message</label><textarea id="message">Bonjour,
+
+Afin de finaliser votre dossier, merci de nous transmettre les documents nécessaires à la tenue de votre comptabilité.
+
+Nous restons à votre disposition pour toute question.
+
+Bien cordialement,
+Le cabinet comptable</textarea>
+<div class="actions"><button class="btn primary" onclick="preview()">Aperçu du document</button><button class="btn gray" onclick="closeModal()">Annuler</button></div>
+</div>
+<div id="preview" class="preview"><div id="paper" class="paper"></div><div class="actions"><button class="btn primary" onclick="window.print()">🖨️ Enregistrer en PDF</button><button class="btn gray" onclick="hidePreview()">Modifier</button></div></div>
+</div></div>
+
+<script>
+const $=id=>document.getElementById(id);
+$("date").value=new Date().toISOString().slice(0,10);
+function newDoc(c){$("bg").style.display="flex";$("preview").style.display="none";if(c)$("client").value=c}
+function closeModal(){$("bg").style.display="none"}
+function hidePreview(){$("preview").style.display="none";window.scrollTo(0,0)}
+function preview(){
+ const c=$("client").value,t=$("type").value,d=$("date").value,y=$("year").value,s=$("subject").value,m=$("message").value;
+ $("paper").innerHTML='<div style="display:flex;justify-content:space-between"><b>COMPTAFLOW</b><span>'+d+'</span></div><div class="line"></div><h2>'+t+'</h2><p><b>Client :</b> '+c+'</p><p><b>Exercice :</b> '+y+'</p><p><b>Objet :</b> '+s+'</p><p style="white-space:pre-line;line-height:1.65">'+m+'</p><div style="margin-top:65px;border-top:1px solid #bbb;width:220px;padding-top:8px">Signature du cabinet</div>';
+ $("preview").style.display="block";
+}
+function dashboard(){$("dash").style.display="block";$("docs").style.display="none"}
+function documents(){$("dash").style.display="none";$("docs").style.display="block"}
+function clients(){alert("Module Clients : création et gestion des fiches clients seront ajoutées dans la prochaine version.")}
+</script>
+</body>
+</html>
